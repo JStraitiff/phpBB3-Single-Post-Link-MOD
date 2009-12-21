@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.3.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Single Post Link]]></title>
+		<description lang="en"><![CDATA[adds a post number in viewtopic.php for each individual post which links to that particular post. This can be helpful when you want to link to a particular post in a topic and not having to describe where it is.]]></description>
+		<author-notes lang="en"><![CDATA[Only 2 Edits. Utilizes many built in phpbb3 functions. Link can be moved to any part of the postrow code on both prosilver and subsilver2 styles.]]></author-notes>
+		<author-group>
+			<author>
+				<realname><![CDATA[Josh Straitiff]]></realname>
+				<username><![CDATA[JStraitiff]]></username>
+				<homepage><![CDATA[http://www.hackworks.org/]]></homepage>
+				<email><![CDATA[straitiffjr@gmail.com]]></email>
+			</author>
+		</author-group>
+		<mod-version>1.0</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>120</time>
+			<target-version>3.0.6</target-version>
+		</installation>
+	</header>
+	<action-group>
+		<open src="viewtopic.php">
+			<edit>
+				<find><![CDATA[	if (isset($cp_row['row']) && sizeof($cp_row['row']))
+	{
+		$postrow = array_merge($postrow, $cp_row['row']);
+	}]]></find>
+				<action type="after-add"><![CDATA[        $postrow['POST_NUM'] = $start + ($i+1);]]></action>
+			</edit>
+		</open>
+		<open src="styles/prosilver/template/viewtopic_body.html">
+			<edit>
+				<find><![CDATA[<!-- IF postrow.POST_ICON_IMG -->]]></find>
+				<action type="before-add"><![CDATA[<strong><a href="#p{postrow.POST_ID}">#{postrow.POST_NUM})</a></strong>&nbsp;]]></action>
+			</edit>
+		</open>
+		<diy-instructions lang="en"><![CDATA[Purge cache
+Adjust placement for your style. (read author's notes for movement specifications.)]]></diy-instructions>
+	</action-group>
+</mod>
